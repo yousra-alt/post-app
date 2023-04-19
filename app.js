@@ -5,10 +5,8 @@ const endpoint = "https://post-rest-api-default-rtdb.firebaseio.com";
 window.addEventListener("load", initApp);
 
 function initApp() {
-    // update the grid of posts: get and show all posts
-    updatePostsGrid();
-    // update the grid of users: get and show all users
-    updateUsersGrid();
+    updatePostsGrid(); // update the grid of posts: get and show all posts
+    updateUsersGrid(); // update the grid of users: get and show all users
 
     // event listener for create new post button
     document.querySelector("#btn-create-post").addEventListener("click", createPostClicked);
@@ -22,24 +20,23 @@ function createPostClicked() {
     const body = "Quo deleniti praesentium dicta non quod aut est molestias molestias et officia quis nihil itaque dolorem quia";
     const image =
         "https://plus.unsplash.com/premium_photo-1675330628475-b4e0e2a3c4a7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60";
-    // call updacreatePost with "hard coded" values - tbd: values from a form
+    // call createPost with "hard-coded" values - tbd: values from a form
     createPost(title, body, image);
 }
 
 // ============== posts ============== //
 
 async function updatePostsGrid() {
-    // get posts from rest endpoint and save in variable
-    const posts = await getPosts();
-    // show all posts (append to the DOM) with posts as argument
-    showPosts(posts);
+    const posts = await getPosts(); // get posts from rest endpoint and save in variable
+    showPosts(posts); // show all posts (append to the DOM) with posts as argument
 }
 
+// Get all posts - HTTP Method: GET
 async function getPosts() {
-    const res = await fetch(`${endpoint}/posts.json`);
-    const data = await res.json();
-    const posts = prepareData(data);
-    return posts;
+    const response = await fetch(`${endpoint}/posts.json`); // fetch request, (GET)
+    const data = await response.json(); // parse JSON to JavaScript
+    const posts = prepareData(data); // convert object of object to array of objects
+    return posts; // return posts
 }
 
 function showPosts(listOfPosts) {
@@ -86,11 +83,11 @@ function showPost(postObject) {
 
 // Create a new post - HTTP Method: POST
 async function createPost(title, body, image) {
-    const newPost = { title, body, image };
-    const json = JSON.stringify(newPost);
-
+    const newPost = { title, body, image }; // create new post object
+    const json = JSON.stringify(newPost); // convert the JS object to JSON string
+    // POST fetch request with JSON in the body
     const response = await fetch(`${endpoint}/posts.json`, { method: "POST", body: json });
-
+    // check if response is ok - if the response is successful
     if (response.ok) {
         console.log("New post succesfully added to Firebase 🔥");
         updatePostsGrid(); // update the post grid to display all posts and the new post
@@ -108,9 +105,12 @@ async function deletePost(id) {
 
 // Delete an existing post - HTTP Method: DELETE
 async function updatePost(id, title, body, image) {
-    const postToUpdate = { title, body, image };
-    const json = JSON.stringify(postToUpdate);
+    const postToUpdate = { title, body, image }; // post update to update
+    const json = JSON.stringify(postToUpdate); // convert the JS object to JSON string
+    // PUT fetch request with JSON in the body. Calls the specific element in resource
     const response = await fetch(`${endpoint}/posts/${id}.json`, { method: "PUT", body: json });
+    // check if response is ok - if the response is successful
+
     if (response.ok) {
         console.log("Post succesfully updated in Firebase 🔥");
         updatePostsGrid(); // update the post grid to display all posts and the new post
@@ -120,20 +120,19 @@ async function updatePost(id, title, body, image) {
 // ============== users ============== //
 
 async function updateUsersGrid() {
-    // get users from rest endpoint and save in variable
-    const users = await getUsers();
-    // show all users (append to the DOM) with users as argument
-    showUsers(users);
+    const users = await getUsers(); // get users from rest endpoint and save in variable
+    showUsers(users); // show all users (append to the DOM) with users as argument
 }
 
 async function getUsers() {
-    const res = await fetch(`${endpoint}/users.json`);
-    const data = await res.json();
-    const users = prepareData(data);
+    const response = await fetch(`${endpoint}/users.json`); // fetch request, (GET)
+    const data = await response.json(); // parse JSON to JavaScript
+    const users = prepareData(data); // convert object of object to array of objects
     return users;
 }
 
 function showUsers(listOfUsers) {
+    // for every user in listOfUsers, showUser
     for (const user of listOfUsers) {
         showUser(user);
     }
