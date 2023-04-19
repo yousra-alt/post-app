@@ -94,7 +94,7 @@ async function createPost(title, body, image) {
     }
 }
 
-// Update an existing post - HTTP Method: PUT
+// Update an existing post - HTTP Method: DELETE
 async function deletePost(id) {
     const response = await fetch(`${endpoint}/posts/${id}.json`, { method: "DELETE" });
     if (response.ok) {
@@ -103,7 +103,7 @@ async function deletePost(id) {
     }
 }
 
-// Delete an existing post - HTTP Method: DELETE
+// Delete an existing post - HTTP Method: PUT
 async function updatePost(id, title, body, image) {
     const postToUpdate = { title, body, image }; // post update to update
     const json = JSON.stringify(postToUpdate); // convert the JS object to JSON string
