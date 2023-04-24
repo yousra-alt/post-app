@@ -248,7 +248,7 @@ dialog p {
 /* ---------- tools grid styling ---------- */
 
 .tools-grid {
-    background-color: var(--light-grey);
+    background-color: var(--light-green);
     display: grid;
     grid-template-columns: 1fr;
     gap: 1em;
