@@ -75,9 +75,7 @@ function sortByChanged(event) {
 
 function inputSearchChanged(event) {
     const value = event.target.value;
-
     const postsToShow = searchPosts(value);
-
     showPosts(postsToShow);
 }
 
