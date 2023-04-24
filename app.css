@@ -207,6 +207,15 @@ input {
     margin: 0 0 1em;
 }
 
+select {
+    background-color: var(--green);
+    border: none;
+    color: var(--text-color-light);
+    padding: 1em;
+    margin: 1em;
+    max-width: 350px;
+}
+
 /* ---------- dialog styling ---------- */
 
 dialog {
@@ -234,4 +243,27 @@ dialog ul {
 }
 dialog p {
     text-align: center;
+}
+
+/* ---------- tools grid styling ---------- */
+
+.tools-grid {
+    background-color: var(--light-grey);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1em;
+    padding: 1em;
+    justify-content: space-between;
+    justify-items: stretch;
+}
+
+@media (min-width: 600px) {
+    .tools-grid {
+        grid-template-columns: auto auto;
+        margin: 1em auto;
+    }
+}
+
+.tools-grid label {
+    max-width: 350px;
 }
