@@ -176,8 +176,7 @@ button {
     font-size: 1em;
     text-align: center;
     cursor: pointer;
-    border: none;
-    border-radius: 0;
+    border: 2px solid var(--green);
     color: var(--text-color-light);
     background-color: var(--green);
     letter-spacing: 0.05em;
@@ -201,6 +200,11 @@ input {
     border: 2px solid var(--green);
     display: block;
     background: var(--white);
+}
+
+.btn-cancel {
+    background: var(--light-green);
+    margin: 0 0 1em;
 }
 
 /* ---------- dialog styling ---------- */
@@ -229,5 +233,5 @@ dialog ul {
     padding-inline-start: 1.5em;
 }
 dialog p {
-    margin: 0.5em 0 1em;
+    text-align: center;
 }

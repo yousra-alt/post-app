@@ -12,6 +12,8 @@ function initApp() {
     document.querySelector("#btn-create-post").addEventListener("click", showCreatePostDialog);
     document.querySelector("#form-create-post").addEventListener("submit", createPostClicked);
     document.querySelector("#form-update-post").addEventListener("submit", updatePostClicked);
+    document.querySelector("#form-delete-post").addEventListener("submit", deletePostClicked);
+    document.querySelector("#form-delete-post .btn-cancel").addEventListener("click", deleteCancelClicked);
 }
 
 // ============== events ============== //
@@ -45,6 +47,15 @@ function updatePostClicked(event) {
     const id = form.getAttribute("data-id");
     updatePost(id, title, body, image); // call updatePost with arguments
     document.querySelector("#dialog-update-post").close(); // close dialog
+}
+
+function deletePostClicked(event) {
+    const id = event.target.getAttribute("data-id"); // event.target is the delete form
+    deletePost(id);
+}
+
+function deleteCancelClicked() {
+    document.querySelector("#dialog-delete-post").close();
 }
 
 // ============== posts ============== //
@@ -90,7 +101,9 @@ function showPost(postObject) {
 
     // called when delete button is clicked
     function deleteClicked() {
-        deletePost(postObject.id); // calls deletePost with the id of the post as argument (parameter)
+        document.querySelector("#dialog-delete-post-title").textContent = postObject.title;
+        document.querySelector("#form-delete-post").setAttribute("data-id", postObject.id);
+        document.querySelector("#dialog-delete-post").showModal();
     }
 
     // called when update button is clicked
