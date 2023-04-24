@@ -19,25 +19,24 @@ function initApp() {
 // ============== events ============== //
 
 function showCreatePostDialog() {
-    document.querySelector("#dialog-create-post").showModal();
+    document.querySelector("#dialog-create-post").showModal(); // show create dialog
 }
 
 function createPostClicked(event) {
-    event.preventDefault();
+    event.preventDefault(); // prevent default behaviour of submit
     const form = event.target; // or "this"
-
-    // extract the values from inputs in the form
+    // extract the values from inputs from the form
     const title = form.title.value;
     const body = form.body.value;
     const image = form.image.value;
 
-    createPost(title, body, image); // use value to create a newpost
-    form.reset(); // reset the form (resetting input fields)
+    createPost(title, body, image); // use values to create a new post
+    form.reset(); // reset the form (clears inputs)
     document.querySelector("#dialog-create-post").close(); // close dialog
 }
 
 function updatePostClicked(event) {
-    event.preventDefault();
+    event.preventDefault(); // prevent default behaviour of submit
     const form = event.target; // or "this"
     // extract the values from inputs in the form
     const title = form.title.value;
@@ -51,11 +50,11 @@ function updatePostClicked(event) {
 
 function deletePostClicked(event) {
     const id = event.target.getAttribute("data-id"); // event.target is the delete form
-    deletePost(id);
+    deletePost(id); // call deletePost with id
 }
 
 function deleteCancelClicked() {
-    document.querySelector("#dialog-delete-post").close();
+    document.querySelector("#dialog-delete-post").close(); // close dialog
 }
 
 // ============== posts ============== //
@@ -101,19 +100,22 @@ function showPost(postObject) {
 
     // called when delete button is clicked
     function deleteClicked() {
+        // show title of post you want to delete
         document.querySelector("#dialog-delete-post-title").textContent = postObject.title;
+        // set data-id attribute of post you want to delete (... to use when delete)
         document.querySelector("#form-delete-post").setAttribute("data-id", postObject.id);
+        // show delete dialog
         document.querySelector("#dialog-delete-post").showModal();
     }
 
     // called when update button is clicked
     function updateClicked() {
-        const updateForm = document.querySelector("#form-update-post");
-        updateForm.title.value = postObject.title;
-        updateForm.body.value = postObject.body;
-        updateForm.image.value = postObject.image;
-        updateForm.setAttribute("data-id", postObject.id);
-        document.querySelector("#dialog-update-post").showModal();
+        const updateForm = document.querySelector("#form-update-post"); // reference to update form in dialog
+        updateForm.title.value = postObject.title; // set title input in update form from post title
+        updateForm.body.value = postObject.body; // set body input in update form post body
+        updateForm.image.value = postObject.image; // set image input in update form post image
+        updateForm.setAttribute("data-id", postObject.id); // set data-id attribute of post you want to update (... to use when update)
+        document.querySelector("#dialog-update-post").showModal(); // show update modal
     }
 }
 
