@@ -8,20 +8,43 @@ function initApp() {
     updatePostsGrid(); // update the grid of posts: get and show all posts
     updateUsersGrid(); // update the grid of users: get and show all users
 
-    // event listener for create new post button
-    document.querySelector("#btn-create-post").addEventListener("click", createPostClicked);
+    // event listener
+    document.querySelector("#btn-create-post").addEventListener("click", showCreatePostDialog);
+    document.querySelector("#form-create-post").addEventListener("submit", createPostClicked);
+    document.querySelector("#form-update-post").addEventListener("submit", updatePostClicked);
 }
 
 // ============== events ============== //
 
-function createPostClicked() {
-    const randomNumber = Math.floor(Math.random() * 100 + 1);
-    const title = `My Post Title Number ${randomNumber}`;
-    const body = "Quo deleniti praesentium dicta non quod aut est molestias molestias et officia quis nihil itaque dolorem quia";
-    const image =
-        "https://plus.unsplash.com/premium_photo-1675330628475-b4e0e2a3c4a7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60";
-    // call createPost with "hard-coded" values - tbd: values from a form
-    createPost(title, body, image);
+function showCreatePostDialog() {
+    document.querySelector("#dialog-create-post").showModal();
+}
+
+function createPostClicked(event) {
+    event.preventDefault();
+    const form = event.target; // or "this"
+
+    // extract the values from inputs in the form
+    const title = form.title.value;
+    const body = form.body.value;
+    const image = form.image.value;
+
+    createPost(title, body, image); // use value to create a newpost
+    form.reset(); // reset the form (resetting input fields)
+    document.querySelector("#dialog-create-post").close(); // close dialog
+}
+
+function updatePostClicked(event) {
+    event.preventDefault();
+    const form = event.target; // or "this"
+    // extract the values from inputs in the form
+    const title = form.title.value;
+    const body = form.body.value;
+    const image = form.image.value;
+    // get id of the post to update - saved in data-id
+    const id = form.getAttribute("data-id");
+    updatePost(id, title, body, image); // call updatePost with arguments
+    document.querySelector("#dialog-update-post").close(); // close dialog
 }
 
 // ============== posts ============== //
@@ -72,12 +95,12 @@ function showPost(postObject) {
 
     // called when update button is clicked
     function updateClicked() {
-        const title = `${postObject.title} Updated 🔥`;
-        const body = "Doloremque ex facilis sit sint culpa soluta assumenda eligendi non ut eius sequi ducimus vel quasi veritatis est dolores";
-        const image =
-            "https://images.unsplash.com/photo-1465779171454-aa85ccf23be6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bG9vcHN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60";
-        // call update post with "hard coded" values - tbd: values from a form
-        updatePost(postObject.id, title, body, image);
+        const updateForm = document.querySelector("#form-update-post");
+        updateForm.title.value = postObject.title;
+        updateForm.body.value = postObject.body;
+        updateForm.image.value = postObject.image;
+        updateForm.setAttribute("data-id", postObject.id);
+        document.querySelector("#dialog-update-post").showModal();
     }
 }
 
