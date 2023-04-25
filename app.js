@@ -9,14 +9,30 @@ function initApp() {
     updatePostsGrid(); // update the grid of posts: get and show all posts
 
     // event listener
-    document.querySelector("#btn-create-post").addEventListener("click", showCreatePostDialog);
-    document.querySelector("#form-create-post").addEventListener("submit", createPostClicked);
-    document.querySelector("#form-update-post").addEventListener("submit", updatePostClicked);
-    document.querySelector("#form-delete-post").addEventListener("submit", deletePostClicked);
-    document.querySelector("#form-delete-post .btn-cancel").addEventListener("click", deleteCancelClicked);
-    document.querySelector("#select-sort-by").addEventListener("change", sortByChanged);
-    document.querySelector("#input-search").addEventListener("keyup", inputSearchChanged);
-    document.querySelector("#input-search").addEventListener("search", inputSearchChanged);
+    document
+        .querySelector("#btn-create-post")
+        .addEventListener("click", showCreatePostDialog);
+    document
+        .querySelector("#form-create-post")
+        .addEventListener("submit", createPostClicked);
+    document
+        .querySelector("#form-update-post")
+        .addEventListener("submit", updatePostClicked);
+    document
+        .querySelector("#form-delete-post")
+        .addEventListener("submit", deletePostClicked);
+    document
+        .querySelector("#form-delete-post .btn-cancel")
+        .addEventListener("click", deleteCancelClicked);
+    document
+        .querySelector("#select-sort-by")
+        .addEventListener("change", sortByChanged);
+    document
+        .querySelector("#input-search")
+        .addEventListener("keyup", inputSearchChanged);
+    document
+        .querySelector("#input-search")
+        .addEventListener("search", inputSearchChanged);
 }
 
 // ============== events ============== //
@@ -32,7 +48,6 @@ function createPostClicked(event) {
     const title = form.title.value;
     const body = form.body.value;
     const image = form.image.value;
-    console.log(title, body, image);
     createPost(title, body, image); // use values to create a new post
     form.reset(); // reset the form (clears inputs)
     document.querySelector("#dialog-create-post").close(); // close dialog
@@ -116,15 +131,22 @@ function showPost(postObject) {
     document.querySelector("#posts").insertAdjacentHTML("beforeend", html); // append html to the DOM - section#posts
 
     // add event listeners to .btn-delete and .btn-update
-    document.querySelector("#posts article:last-child .btn-delete").addEventListener("click", deleteClicked);
-    document.querySelector("#posts article:last-child .btn-update").addEventListener("click", updateClicked);
+    document
+        .querySelector("#posts article:last-child .btn-delete")
+        .addEventListener("click", deleteClicked);
+    document
+        .querySelector("#posts article:last-child .btn-update")
+        .addEventListener("click", updateClicked);
 
     // called when delete button is clicked
     function deleteClicked() {
         // show title of post you want to delete
-        document.querySelector("#dialog-delete-post-title").textContent = postObject.title;
+        document.querySelector("#dialog-delete-post-title").textContent =
+            postObject.title;
         // set data-id attribute of post you want to delete (... to use when delete)
-        document.querySelector("#form-delete-post").setAttribute("data-id", postObject.id);
+        document
+            .querySelector("#form-delete-post")
+            .setAttribute("data-id", postObject.id);
         // show delete dialog
         document.querySelector("#dialog-delete-post").showModal();
     }
@@ -142,13 +164,11 @@ function showPost(postObject) {
 
 function searchPosts(searchValue) {
     searchValue = searchValue.toLowerCase();
-    console.log(searchValue);
 
     const results = posts.filter(checkTitle);
 
     function checkTitle(post) {
         const title = post.title.toLowerCase();
-        console.log(title);
         return title.includes(searchValue);
     }
 
