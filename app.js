@@ -9,30 +9,14 @@ function initApp() {
     updatePostsGrid(); // update the grid of posts: get and show all posts
 
     // event listener
-    document
-        .querySelector("#btn-create-post")
-        .addEventListener("click", showCreatePostDialog);
-    document
-        .querySelector("#form-create-post")
-        .addEventListener("submit", createPostClicked);
-    document
-        .querySelector("#form-update-post")
-        .addEventListener("submit", updatePostClicked);
-    document
-        .querySelector("#form-delete-post")
-        .addEventListener("submit", deletePostClicked);
-    document
-        .querySelector("#form-delete-post .btn-cancel")
-        .addEventListener("click", deleteCancelClicked);
-    document
-        .querySelector("#select-sort-by")
-        .addEventListener("change", sortByChanged);
-    document
-        .querySelector("#input-search")
-        .addEventListener("keyup", inputSearchChanged);
-    document
-        .querySelector("#input-search")
-        .addEventListener("search", inputSearchChanged);
+    document.querySelector("#btn-create-post").addEventListener("click", showCreatePostDialog);
+    document.querySelector("#form-create-post").addEventListener("submit", createPostClicked);
+    document.querySelector("#form-update-post").addEventListener("submit", updatePostClicked);
+    document.querySelector("#form-delete-post").addEventListener("submit", deletePostClicked);
+    document.querySelector("#form-delete-post .btn-cancel").addEventListener("click", deleteCancelClicked);
+    document.querySelector("#select-sort-by").addEventListener("change", sortByChanged);
+    document.querySelector("#input-search").addEventListener("keyup", inputSearchChanged);
+    document.querySelector("#input-search").addEventListener("search", inputSearchChanged);
 }
 
 // ============== events ============== //
@@ -42,7 +26,6 @@ function showCreatePostDialog() {
 }
 
 function createPostClicked(event) {
-    event.preventDefault(); // prevent default behaviour of submit
     const form = event.target; // or "this"
     // extract the values from inputs from the form
     const title = form.title.value;
@@ -50,11 +33,9 @@ function createPostClicked(event) {
     const image = form.image.value;
     createPost(title, body, image); // use values to create a new post
     form.reset(); // reset the form (clears inputs)
-    document.querySelector("#dialog-create-post").close(); // close dialog
 }
 
 function updatePostClicked(event) {
-    event.preventDefault(); // prevent default behaviour of submit
     const form = event.target; // or "this"
     // extract the values from inputs in the form
     const title = form.title.value;
@@ -63,7 +44,6 @@ function updatePostClicked(event) {
     // get id of the post to update - saved in data-id
     const id = form.getAttribute("data-id");
     updatePost(id, title, body, image); // call updatePost with arguments
-    document.querySelector("#dialog-update-post").close(); // close dialog
 }
 
 function deletePostClicked(event) {
@@ -131,22 +111,15 @@ function showPost(postObject) {
     document.querySelector("#posts").insertAdjacentHTML("beforeend", html); // append html to the DOM - section#posts
 
     // add event listeners to .btn-delete and .btn-update
-    document
-        .querySelector("#posts article:last-child .btn-delete")
-        .addEventListener("click", deleteClicked);
-    document
-        .querySelector("#posts article:last-child .btn-update")
-        .addEventListener("click", updateClicked);
+    document.querySelector("#posts article:last-child .btn-delete").addEventListener("click", deleteClicked);
+    document.querySelector("#posts article:last-child .btn-update").addEventListener("click", updateClicked);
 
     // called when delete button is clicked
     function deleteClicked() {
         // show title of post you want to delete
-        document.querySelector("#dialog-delete-post-title").textContent =
-            postObject.title;
+        document.querySelector("#dialog-delete-post-title").textContent = postObject.title;
         // set data-id attribute of post you want to delete (... to use when delete)
-        document
-            .querySelector("#form-delete-post")
-            .setAttribute("data-id", postObject.id);
+        document.querySelector("#form-delete-post").setAttribute("data-id", postObject.id);
         // show delete dialog
         document.querySelector("#dialog-delete-post").showModal();
     }
