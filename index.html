@@ -26,7 +26,10 @@
                     <option value="body">Body</option>
                 </select>
             </label>
-            <input type="search" id="input-search" placeholder="Search by title">
+            <div>
+                <label for="input-search">Search:</label>
+                <input type="search" id="input-search" placeholder="Search by title">
+            </div>
         </section>
         <section id="posts" class="grid-container"></section>
     </main>
@@ -62,7 +65,7 @@
     <!-- dialog - delete post -->
     <dialog id="dialog-delete-post">
         <h2>Do you want to delete post?</h2>
-        <p id="dialog-delete-post-title" method="dialog">Title of post</p>
+        <p id="dialog-delete-post-title">Title of post</p>
         <form id="form-delete-post" method="dialog">
             <button type="button" class="btn-cancel">No</button>
             <button>Yes</button>
