@@ -203,6 +203,11 @@ input {
     background: var(--white);
 }
 
+input:invalid {
+    border: 2px rgb(169, 19, 19);
+    background-color: rgb(221, 150, 150);
+}
+
 .btn-cancel {
     background: var(--light-green);
     margin: 0 0 1em;
